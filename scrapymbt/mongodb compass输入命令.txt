@@ -1,0 +1,2 @@
+filter:{crawl_date:'2021-12-01'}
+project:{_id:0, crawl_date:0}
