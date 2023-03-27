@@ -1,6 +1,5 @@
 import scrapy
 from scrapymbt.items import *
-from scrapymbt.process import Value
 import copy
 
 
@@ -27,12 +26,6 @@ class VkhvacrSpider(scrapy.Spider):
                     keywords = row.xpath('./div[3]/div/div[1]/span[2]/a/span/text()').extract_first()
                     item['keywords'] = keywords
 
-                    item['brand'] = Value(title, self.settings.get('BRAND')).return_value()
-                    item['project'] = Value(title, self.settings.get('PROJECT')).return_value()
-                    product = Value(title, self.settings.get('PRODUCT')).return_value()
-                    item['product'] = product
-                    item['province'] = Value(title, self.settings.get('PROVINCE')).return_value()
-                    item['content_type'] = Value(title, self.settings.get('KEYWORD_TAB')).return_value()
                     yield scrapy.Request(url=url, callback=self.item_parse, meta={'item': copy.deepcopy(item)},
                                          dont_filter=True)
                 # 如果列表页最后一条资讯的创建日期大于等于START_DATE，则进入下一页
@@ -50,6 +43,7 @@ class VkhvacrSpider(scrapy.Spider):
         item['website'] = 'V客暖通网热泵'
         item['website_type'] = '行业门户'
         item['content'] = ''.join(i.strip().replace('\r', '').replace('\u3000', '').replace(u'\xa0', '')
-                                  for i in response.xpath('//*[@class="content"]/p/text()').extract())
+                                  for i in response.xpath('//div[@class="w-68 left"]/div[@class="content"]/p/text()').extract())
 
         yield item
+

@@ -5,6 +5,7 @@ from scrapymbt.items import *
 import copy
 
 
+#  中国政府采购网
 class CcgpSpider(scrapy.Spider):
     name = 'ccgp'
     allowed_domains = ['ccgp.gov.cn']

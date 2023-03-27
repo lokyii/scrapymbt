@@ -2,8 +2,13 @@
 #
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import random
+import time
 
 from scrapy import signals
+from scrapy.http import HtmlResponse
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
@@ -101,3 +106,82 @@ class ScrapymbtDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class SeleniumDownloaderMiddleware(object):
+
+    def process_response(self, request, response, spider):
+        if request.url[:45] == "http://www.cq.gov.cn/cqgovsearch/search.html?":
+            spider.browser.get(request.url)
+
+            # spider.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#news_list')))
+            time.sleep(random.randint(2, 5))
+
+            origin_code = spider.browser.page_source
+            # 将源代码构造成为一个Response对象，并返回
+            response = HtmlResponse(url=request.url, encoding='utf8', body=origin_code, request=request, status=200)
+            return response
+
+        if request.url[:31] == 'http://www.beijing.gov.cn/so/s?':
+            spider.browser.get(request.url)
+
+            # 市政府
+            if request.url[:39] == 'http://www.beijing.gov.cn/so/s?tab=zcfg':
+                # 按日期
+                order_by_date = spider.wait.until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, '.toolsnav > div:nth-child(1) > a:nth-child(3)')))
+                order_by_date.click()
+                # 时间选择
+                period_selector = spider.wait.until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, '.toolsul > span:nth-child(1)')))
+                period_selector.click()
+                # 从
+                period_start = spider.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#stimeqsrq')))
+                period_start.clear()
+                period_start.send_keys(spider.start_date)
+                # 至
+                period_end = spider.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#stimejsrq')))
+                period_end.clear()
+                period_end.send_keys(spider.end_date)
+                # 确定
+                confirm = spider.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#zcdatebtu')))
+                confirm.click()
+            # 市发改委
+            if request.url[:39] == 'http://www.beijing.gov.cn/so/s?tab=ssbm':
+                # 按日期
+                order_by_date = spider.wait.until(EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, '.toolsnav > div:nth-child(1) > a:nth-child(3)')))
+                order_by_date.click()
+                # 时间选择
+                period_selector = spider.wait.until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, '#timesSpanId')))
+                period_selector.click()
+                # 从
+                period_start = spider.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#utimeqsrq')))
+                period_start.clear()
+                period_start.send_keys(spider.start_date)
+                # 至
+                period_end = spider.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#utimejsrq')))
+                period_end.clear()
+                period_end.send_keys(spider.end_date)
+                # 确定
+                confirm = spider.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#datebtu')))
+                confirm.click()
+                time.sleep(random.randint(1, 3))
+                # 北京市发展和改革委员会
+                beijingfgw = spider.wait.until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, '#WEBSITENAME北京市发展和改革委员会')))
+                beijingfgw.click()
+
+            time.sleep(random.randint(1, 3))
+
+            origin_code = spider.browser.page_source
+            # 将源代码构造成为一个Response对象，并返回
+            response = HtmlResponse(url=request.url, encoding='utf8', body=origin_code, request=request, status=200)
+            return response
+
+        return response
+
+
+
+

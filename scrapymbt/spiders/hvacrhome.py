@@ -1,6 +1,5 @@
 import scrapy
 from scrapymbt.items import *
-from scrapymbt.process import Value
 import copy
 
 # 暖通家爬虫
@@ -15,7 +14,7 @@ class HvacrhomeSpider(scrapy.Spider):
         next_page_num = int(next_page.split('=')[-1])  # 下一页的页码
         rows = response.xpath('//div[@class="listbox"]/ul/li')
         for row in rows:
-            created_date = row.xpath('./div/div[2]/span/text()').extract_first().strip()
+            created_date = row.xpath('./div/div[3]/span/text()').extract_first().strip()
 
             # 若该资讯的创建日期大于等于START_DATE且小于等于END_DATE, 则进行解析
             if created_date >= self.settings.get('START_DATE'):
@@ -26,18 +25,9 @@ class HvacrhomeSpider(scrapy.Spider):
                     item['url'] = url
                     title = row.xpath('./div/div[1]/a/text()').extract_first().strip()
                     item['title'] = title
-                    keywords = ','.join(i for i in row.xpath('./div/div[2]/div[2]/a/text()').extract())
+                    keywords = ','.join(i for i in row.xpath('./div/div[3]/div[2]/a/text()').extract())
                     item['keywords'] = keywords
-                    item['brand'] = Value(keywords, self.settings.get('BRAND')).return_value()
-                    item['project'] = Value(keywords, self.settings.get('PROJECT')).return_value()
-                    # 若在关键字中匹配不到产品，再与标题匹配
-                    product = Value(keywords, self.settings.get('PRODUCT')).return_value()
-                    if product is None:
-                        product = Value(title, self.settings.get('PRODUCT')).return_value()
 
-                    item['product'] = product
-                    item['province'] = Value(keywords, self.settings.get('PROVINCE')).return_value()
-                    item['content_type'] = Value(keywords, self.settings.get('KEYWORD_TAB')).return_value()
                     if url is not None:
                         yield scrapy.Request(url=url, callback=self.item_parse, meta={'item': copy.deepcopy(item)})
 
@@ -63,4 +53,3 @@ class HvacrhomeSpider(scrapy.Spider):
         yield item
 
 
-# scrapy.requests()仍然有重复内容，需在插入数据库设置防止插入重复数据

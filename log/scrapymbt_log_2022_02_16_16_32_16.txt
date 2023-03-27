@@ -1,0 +1,112 @@
+2022-02-16 16:32:17 [twisted] CRITICAL: Unhandled error in Deferred:
+2022-02-16 16:32:17 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\twisted\internet\defer.py", line 1661, in _inlineCallbacks
+    result = current_context.run(gen.send, result)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\crawler.py", line 86, in crawl
+    self.spider = self._create_spider(*args, **kwargs)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\crawler.py", line 98, in _create_spider
+    return self.spidercls.from_crawler(self, *args, **kwargs)
+TypeError: from_crawler() got an unexpected keyword argument 'logfile'
+2022-02-16 16:32:17 [twisted] CRITICAL: Unhandled error in Deferred:
+2022-02-16 16:32:17 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\twisted\internet\defer.py", line 1661, in _inlineCallbacks
+    result = current_context.run(gen.send, result)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\crawler.py", line 86, in crawl
+    self.spider = self._create_spider(*args, **kwargs)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\crawler.py", line 98, in _create_spider
+    return self.spidercls.from_crawler(self, *args, **kwargs)
+TypeError: from_crawler() got an unexpected keyword argument 'logfile'
+2022-02-16 16:32:19 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.hvacrhome.com/news/list.php?catid=4> (referer: None)
+Traceback (most recent call last):
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\defer.py", line 120, in iter_errback
+    yield next(it)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\offsite.py", line 29, in process_spider_output
+    for x in result:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\referer.py", line 342, in <genexpr>
+    return (_set_referer(r) for r in result or ())
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 40, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\depth.py", line 58, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\GitSpace\scrapymbt\scrapymbt\spiders\hvacrhome.py", line 17, in parse
+    created_date = row.xpath('./div/div[2]/span/text()').extract_first().strip()
+AttributeError: 'NoneType' object has no attribute 'strip'
+2022-02-16 16:32:21 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.hvacrhome.com/news/list.php?catid=8> (referer: None)
+Traceback (most recent call last):
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\defer.py", line 120, in iter_errback
+    yield next(it)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\offsite.py", line 29, in process_spider_output
+    for x in result:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\referer.py", line 342, in <genexpr>
+    return (_set_referer(r) for r in result or ())
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 40, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\depth.py", line 58, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\GitSpace\scrapymbt\scrapymbt\spiders\hvacrhome.py", line 17, in parse
+    created_date = row.xpath('./div/div[2]/span/text()').extract_first().strip()
+AttributeError: 'NoneType' object has no attribute 'strip'
+2022-02-16 16:32:21 [scrapy.core.engine] ERROR: Scraper close failure
+Traceback (most recent call last):
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\twisted\internet\defer.py", line 858, in _runCallbacks
+    current.result = callback(  # type: ignore[misc]
+TypeError: close_spider() takes 1 positional argument but 2 were given
+2022-02-16 16:32:30 [scrapy.core.scraper] ERROR: Spider error processing <POST http://search.zj.gov.cn/jsearchfront/interfaces/cateSearch.do> (referer: None)
+Traceback (most recent call last):
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\defer.py", line 120, in iter_errback
+    yield next(it)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\utils\python.py", line 353, in __next__
+    return next(self.data)
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\offsite.py", line 29, in process_spider_output
+    for x in result:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\referer.py", line 342, in <genexpr>
+    return (_set_referer(r) for r in result or ())
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 40, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\spidermiddlewares\depth.py", line 58, in <genexpr>
+    return (r for r in result or () if _filter(r))
+  File "D:\Software\PyCharm Community Edition 2020.3.2\spider_venv\lib\site-packages\scrapy\core\spidermw.py", line 56, in _evaluate_iterable
+    for r in iterable:
+  File "D:\Software\GitSpace\scrapymbt\scrapymbt\spiders\zhejianggov.py", line 47, in parse
+    rows = result['result']
+KeyError: 'result'

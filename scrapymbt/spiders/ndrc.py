@@ -54,6 +54,7 @@ class NdrcSpider(scrapy.Spider):
 
                             # 除规划文本/通知有各省份政策，其余为全国政策
                             item['province'] = '全国'
+                            province = None
                             if response.url.split('/')[-2] == 'ghwb' or response.url.split('/')[-2] == 'tz':
                                 province = Value(title, self.settings.get('PROVINCE')).return_value()
                             if province is not None:
@@ -80,7 +81,7 @@ class NdrcSpider(scrapy.Spider):
         item['website'] = '国家发改委'
         item['website_type'] = '政策法规'
         item['content'] = ''.join(i.strip().replace('\r', '').replace('\u3000', '').replace('\u2003', '').replace(u'\xa0', '')
-                                  for i in response.xpath('//div[@class="article_con article_con_notitle"]//text()').extract())
+                                  for i in response.xpath('//div[starts-with(@class,"article_con")]//text()').extract())
 
         yield item
 

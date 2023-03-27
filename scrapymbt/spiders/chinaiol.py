@@ -3,7 +3,6 @@ import json
 from lxml import etree
 from scrapymbt.items import *
 import copy
-from scrapymbt.process import Value
 import re
 
 class ChinaiolSpider(scrapy.Spider):
@@ -35,16 +34,6 @@ class ChinaiolSpider(scrapy.Spider):
             item['title'] = title
             item['url'] = url
             item['keywords'] = keywords
-
-            item['brand'] = Value(keywords, self.settings.get('BRAND')).return_value()
-            item['project'] = Value(keywords, self.settings.get('PROJECT')).return_value()
-            # 若在关键字中匹配不到产品，再与标题匹配
-            product = Value(keywords, self.settings.get('PRODUCT')).return_value()
-            if product is None:
-                product = Value(title, self.settings.get('PRODUCT')).return_value()
-            item['product'] = product
-            item['province'] = Value(title, self.settings.get('PROVINCE')).return_value()
-            item['content_type'] = Value(keywords, self.settings.get('KEYWORD_TAB')).return_value()
 
             count = count + 1
 
